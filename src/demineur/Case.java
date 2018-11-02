@@ -1,6 +1,6 @@
 package demineur;
 
-public class Grille
+public class Case
 {
 	
 }
