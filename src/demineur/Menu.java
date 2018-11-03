@@ -18,7 +18,7 @@ public class Menu
 					new Partie(5,0,true);
 					break;
 				case 2:
-					System.out.println("<Parametres>");
+					new Parametre();
 					break;
 				case 3:
 					System.out.println("<Regles>");
