@@ -15,7 +15,7 @@ public class Menu
 			switch (ChoixMenu) // condition du choix du menu
 			{
 				case 1:
-					new Jouer();
+					new Partie(10,50,true);
 					break;
 				case 2:
 					System.out.println(" PARAMETRE");
