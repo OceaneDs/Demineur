@@ -4,31 +4,36 @@ import java.util.Scanner;
 public class Jouer
 {
 	protected Scanner sc;
-	public Jouer()
+	private int choix, abscisse, ordonnee;
+	public Jouer(Case[][] grille)
 	{
-		int ChoixJouer;
-		do
-		{
 			sc = new Scanner(System.in);
-			System.out.println("Saisir le numéro correspondant à ce que vous voulez faire :\n 1. Devoiler une case\n 2. Poser un drapeau\n 3. Retirer un drapeau\n 4. Retour au menu principal");
-			ChoixJouer = sc.nextInt();
-			switch (ChoixJouer)
+			System.out.printf("<CHOIX>\n1. Devoiler une case\n2. Poser un drapeau\n3. Retirer un drapeau\n4. Retour\n: ");
+			choix = sc.nextInt();
+			switch(choix)
 			{
 				case 1:
-					System.out.println("Devoiler une case");
+					coordonnees();
 					break;
 				case 2:
-					System.out.println("Poser un drapeau");
+					coordonnees();
 					break;
 				case 3:
-					System.out.println("Retirer un drapeau");
+					coordonnees();
 					break;
 				case 4:
-					System.out.println("Vous quitter le mode Jouer");
 					break;
 				default:
-					System.out.println("Erreur de saisi pour jouer");
+					System.out.println("<Err!");
 			}
-		}while(ChoixJouer != 4);
-	}	
+			System.out.println("<FIN PARTIE>");
+	}
+	private void coordonnees()
+	{
+		System.out.println("<COORDONNEES>");
+		System.out.printf("X : ");
+		abscisse = sc.nextInt();
+		System.out.printf("Y : ");
+		ordonnee = sc.nextInt();
+	}
 }

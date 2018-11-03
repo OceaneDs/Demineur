@@ -6,29 +6,30 @@ public class Menu
 	private Scanner sc;
 	public Menu()
 	{
-		int ChoixMenu;
+		int choix;
 		do // boucle du menu principal, ChoixMenu doit etre egal a 4 pour quitter le programme
 		{
 			sc = new Scanner(System.in);
-			System.out.println("Saisir en fonction de ce que vous voulez faire:\n 1. Jouer\n 2. Parametre\n 3. Regles\n 4. Quitter");
-			ChoixMenu = sc.nextInt(); //saisie du choix du menu principal
-			switch (ChoixMenu) // condition du choix du menu
+			System.out.printf("<CHOIX>\n1. Jouer\n2. Parametres\n3. Regles\n4. Quitter\n: ");
+			choix = sc.nextInt(); //saisie du choix du menu principal
+			switch(choix) // condition du choix du menu
 			{
 				case 1:
-					new Partie(10,50,true);
+					new Partie(5,0,true);
 					break;
 				case 2:
-					System.out.println(" PARAMETRE");
+					System.out.println("<Parametres>");
 					break;
 				case 3:
+					System.out.println("<Regles>");
 					new Regles();
 					break;
 				case 4:
-						System.out.println("Fin du programme");
+						System.out.println("<FIN DEMINEUR>");
 					break;
 				default:
-					System.out.println("Erreur de choix du menu principal");
+					System.out.println("<Err!>");
 			}
-		}while(ChoixMenu != 4); //voir ligne 14
+		}while(choix != 4);
 	}	
 }

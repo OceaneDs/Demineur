@@ -2,13 +2,13 @@ package demineur;
 
 public class Grille
 {
-	private int taille = 10, pBomb = 50, abscisse, ordonnee;
-	private Bombe bomb = new Bombe(pBomb);
-	private Case[][] grille = new Case[taille][taille]; // cree un tableau multidimetionnel de Case
+	private int taille = 10, pBomb, abscisse, ordonnee;
+	private Case[][] grille = new Case[taille][taille]; // cree un tableau multidimentionnel de Case
 	public Grille(int taille, int pBomb){setTaille(taille); setPBomb(pBomb); iniGrille();} // definie la taille, puis appel l'initialisation de la grille
 	private void iniGrille()
 	{
-			for(int x = 0; x < taille; x++)
+		Bombe bomb = new Bombe(pBomb);
+		for(int x = 0; x < taille; x++)
 		{
 			for(int y = 0; y < taille; y++)
 			{
@@ -19,6 +19,7 @@ public class Grille
 	public void afficher(boolean cheat)
 	{
 		ordonnee = taille;
+		abscisse = 0;
 		for(int x = 0; x < taille+1; x++)
 		{
 			for(int y = -1; y < taille; y++)
@@ -31,7 +32,7 @@ public class Grille
 				{
 					if(x < taille)
 					{
-						if(grille[x][y].getDiscovered() == false && grille[x][y].getBomb() == false)
+						if(grille[x][y].getDiscovered() == false && (grille[x][y].getBomb() == false || cheat == false))
 							System.out.printf(" %c |", 176);
 						else if(grille[x][y].getDiscovered() == false && cheat == true && grille[x][y].getBomb() == true)
 							System.out.printf(" x |");
@@ -59,4 +60,12 @@ public class Grille
 	public void setTaille(int taille){this.taille = taille;} // modifie la taille de la grille
 	public int getPBomb(){return this.pBomb;} // retourne le pourcentage de bombes
 	public void setPBomb(int pBomb){this.pBomb = pBomb;} // modifie le pourcentage de bombes
+	public void jouer()
+	{
+		new Jouer(grille);
+	}
+	public boolean verifVic()
+	{
+		return false;
+	}
 }
