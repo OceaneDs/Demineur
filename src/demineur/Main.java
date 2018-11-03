@@ -4,16 +4,17 @@ import java.util.Scanner;
 
 public class Main
 {
-
 	private static Scanner sc;
 
 	public static void main(String[] args)
 	{
-		do // boucle du menu principal,ChoixMenu doit etre egal à 4 pour quitter le programme
+		int ChoixMenu;
+		int ChoixRegle;
+		do // boucle du menu principal,ChoixMenu doit etre egal a 4 pour quitter le programme
 		{
 			sc = new Scanner(System.in);
-			MenuPrincipal(); // appel de méthode pour l'affichage du menu principal
-			int ChoixMenu = sc.nextInt(); //saisie du choix du menu principal
+			System.out.println("Saisir en fonction de ce que vous voulez faire:\n 1. Jouer\n 2. Parametre\n 3. Regles\n 4. Quitter");
+			ChoixMenu = sc.nextInt(); //saisie du choix du menu principal
 			switch (ChoixMenu) // condition du choix du menu
 			{
 				case 1:
@@ -24,32 +25,37 @@ public class Main
 					break;
 				case 3:
 					Scanner str = new Scanner(System.in);
-					Affichage.Regles();
-					int ChoixRegle = str.nextInt();
-					do // boucle du choix de regle, ChoixRegle doit etre egal à 6
+					System.out.println("Saisir en fonction de ce que vous voulez voir:\n 1. Parametre Partie\n 2. Grille\n 3. Devoiler case\n 4. Drapeau\n 5. Victoire\n 6. Retourner au menu principale");
+					do // boucle du choix de regle, ChoixRegle doit etre egal a 6
 					{
+						ChoixRegle = str.nextInt();
 						switch (ChoixRegle)
 						{
 							case 1:
-								Affichage.RegleParametrePartie();
+								System.out.println(" ECRIRE LES REGLE PARAMETRE !!!");
 								break;
 							case 2 :
-								Affichage.RegleGrille();
+								System.out.println(" ECRIRE LES REGLES GRILLE !!!");
 								break;
 							case 3:
-								Affichage.RegleDevoilerCase();
+								System.out.println(" ECRIRE LES REGLES DEVOILER CASE");
 								break;
 							case 4 :
-								Affichage.RegleDrapeaux();
+								System.out.println(" ECRIRE LES REGLES DRAPEAUX");
 								break;
 							case 5:
-								Affichage.RegleVictoire();
+								System.out.println(" ECRIRE LES REGLES VICTOIRE");
+								break;
+							case 6:
+								System.out.println("Retour au menu principal");
+								break;
 							default:
-								Affichage.ErreurChoix(); // appel méthode static pour l'affichage en cas d'erreur de saisie du nombre
+								System.out.println("Erreur de choix1");
 						}
 					}while(ChoixRegle != 6); //voir ligne 31
+					break;
 				default:
-					Affichage.ErreurChoix();
+					System.out.println("Erreur de choix");
 			}
 		}while(ChoixMenu != 4); //voir ligne 14
 	}
