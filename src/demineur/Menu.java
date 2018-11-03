@@ -18,7 +18,7 @@ public class Menu
 					new Jouer();
 					break;
 				case 2:
-					System.out.println(" PARAMETRE");
+					new Parametre();;
 					break;
 				case 3:
 					new Regles();
