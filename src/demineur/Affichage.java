@@ -4,4 +4,3 @@ public class Affichage
 {
 	
 }
-// pourcentage de bombe, mode triche, taille de grille
