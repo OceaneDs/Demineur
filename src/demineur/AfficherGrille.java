@@ -45,7 +45,7 @@ public class AfficherGrille
 			}
 			System.out.printf("\n");
 		}
-		System.out.printf("Drapeau(x) disponible(s) : %d\n", nbBomb-nbFlag);
+		System.out.printf(" Drapeau(x) disponible(s) : %d\n", nbBomb-nbFlag);
 	}
 	
 	private void reperes(int nb){ // permet d'annuler les decalages graphique pour les reperes abscisse et ordonnee (jusqu'a une taille de 999)

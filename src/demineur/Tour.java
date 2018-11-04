@@ -7,23 +7,24 @@ public class Tour
 	private int choix, abscisse, ordonnee;
 	private Grille terrain;
 	
-	public boolean jouer(int taille, boolean cheat)
+	public boolean jouer(Grille terrain, int taille, boolean cheat)
 	{
+		this.terrain = terrain;
 		sc = new Scanner(System.in);
-		System.out.printf(" 1. Devoiler\n 2. Poser un drapeau\n 3. Retirer un drapeau\n 4. Quitter\n-> ");
+		System.out.printf(" 1. Devoiler | 2. Poser un drapeau | 3. Retirer un drapeau | 4. Quitter\n-> ");
 		choix = sc.nextInt();
 		switch(choix)
 		{
 			case 1:
-				coordonnees(taille, cheat);
+				coordonnees(taille);
 				devoiler();
 				break;
 			case 2:
-				coordonnees(taille, cheat);
+				coordonnees(taille);
 				poserDrapeau();
 				break;
 			case 3:
-				coordonnees(taille, cheat);
+				coordonnees(taille);
 				retirerDrapeau();
 				break;
 			case 4:
@@ -39,22 +40,20 @@ public class Tour
 		return this.terrain;
 	}
 	
-	private void coordonnees(int taille, boolean cheat)
+	private void coordonnees(int taille)
 	{
+		System.out.printf("Coordonnee en x\n-> ");
 		do
 		{
-			new AfficherGrille(terrain, taille, cheat);
-			System.out.printf("Coordonnee de X\n-> ");
 			choix = sc.nextInt();
 			if(choix < 1 || choix > taille)
 				System.out.printf("<Erreur !> x E [1;%d]\n-> ", taille);
 			else
 				abscisse = taille - choix;
 		}while(choix < 1 || choix > taille);
+		System.out.printf("Coordonnee en y\n-> ");
 		do
 		{
-			new AfficherGrille(terrain, taille, cheat);
-			System.out.printf("Coordonnee de Y\n-> ");
 			choix = sc.nextInt();
 			if(choix < 1 || choix > taille)
 				System.out.printf("<Erreur !> y E [1;%d]\n-> ", taille);
@@ -65,6 +64,7 @@ public class Tour
 	
 	private void devoiler()
 	{
+		System.out.println("code");
 //		this.terrain = terrain;
 	}
 	

@@ -14,7 +14,7 @@ public class Partie
 		do
 		{
 			new AfficherGrille(terrain, taille, cheat);
-			quitter = tour.jouer(taille, cheat);
+			quitter = tour.jouer(terrain, taille, cheat);
 			terrain = tour.getTerrain();
 		}while(condition.victoire(terrain) == false && quitter == false);
 		System.out.println(" --- <FIN PARTIE> ---");
