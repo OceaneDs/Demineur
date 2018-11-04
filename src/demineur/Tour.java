@@ -99,15 +99,28 @@ public class Tour
 		return false;
 	}
 	
+	
 	private void poserDrapeau()
 	{
-		
-		this.terrain = terrain;
+		Case[][] grille = terrain.getGrille();
+		while(grille[ordonnee][abscisse].getDiscovered() || grille[ordonnee][abscisse].getFlag())
+		{
+			System.out.println("<Erreur !> la case a deja un drapeau");
+			coordonnees();
+		}
+		grille[ordonnee][abscisse].setFlag(true);
+		terrain.setGrille(grille);
 	}
 	
 	private void retirerDrapeau()
 	{
-		
-		this.terrain = terrain;
+		Case[][] grille = terrain.getGrille();
+		while(!grille[ordonnee][abscisse].getFlag())
+		{
+			System.out.println("<Erreur !> la case n'a pas de drapeau");
+			coordonnees();
+		}
+		grille[ordonnee][abscisse].setFlag(false);
+		terrain.setGrille(grille);
 	}
 }
