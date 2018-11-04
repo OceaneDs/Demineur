@@ -26,15 +26,22 @@ public class AfficherGrille
 					ordonnee--;
 				}else
 				{
-					if(x < taille)
+					if(x < taille) // regroupe les 16 conditions d'affichage
 					{
-						if(grille[x][y].getDiscovered() == false && (grille[x][y].getBomb() == false || cheat == false))
+						if((!grille[x][y].getDiscovered() && !grille[x][y].getBomb() && !grille[x][y].getFlag())  || (!grille[x][y].getDiscovered() && grille[x][y].getBomb() && !grille[x][y].getFlag() && !cheat))
 							System.out.printf(" %c |", 176);
-						else if(grille[x][y].getDiscovered() == false && cheat == true && grille[x][y].getBomb() == true)
+						else if((!grille[x][y].getDiscovered() && !grille[x][y].getBomb() && grille[x][y].getFlag()) || (!grille[x][y].getDiscovered() && grille[x][y].getBomb() && grille[x][y].getFlag()))
+							System.out.printf(" ? |");
+						else if((!grille[x][y].getDiscovered() && grille[x][y].getBomb() && !grille[x][y].getFlag() && cheat) || (grille[x][y].getDiscovered() && grille[x][y].getBomb() && !grille[x][y].getFlag()))
 							System.out.printf(" x |");
-						else 
-							System.out.printf("   |");
-						if(grille[x][y].getFlag() == true)
+						else if(grille[x][y].getDiscovered() && !grille[x][y].getBomb() && !grille[x][y].getFlag())
+						{
+							if(grille[x][y].getValue() != 0)
+								System.out.printf(" %d |", grille[x][y].getValue());
+							else
+								System.out.printf("   |");
+						}
+						if(grille[x][y].getFlag())
 							nbFlag++;
 					}else
 					{
