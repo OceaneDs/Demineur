@@ -3,7 +3,7 @@ package demineur;
 public class Partie
 {
 	private Grille terrain;
-	private Tour tour = new Tour();
+	private Tour tour;
 	private CondiStop condition = new CondiStop();
 	
 	public Partie(int taille, int pBomb, boolean cheat)
@@ -11,6 +11,7 @@ public class Partie
 		boolean quitter;
 		System.out.println(" --- <DEBUT PARTIE> ---");
 		terrain = new Grille(taille, pBomb);
+		tour = new Tour();
 		do
 		{
 			new AfficherGrille(terrain, taille, cheat);

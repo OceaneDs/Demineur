@@ -63,4 +63,18 @@ public class Grille
 	{
 		return bomb.getNbBomb();
 	}
+	
+	public int getNbFlag()
+	{
+		int nbFlag = 0;
+		for(int x = 0; x < taille; x++)
+		{
+			for(int y = 0; y < taille; y++)			
+			{
+				if(grille[x][y].getFlag())
+					nbFlag++;
+			}
+		}
+		return nbFlag;
+	}
 }

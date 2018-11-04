@@ -3,10 +3,12 @@ package demineur;
 public class AfficherGrille
 {
 	private Case[][] grille;
-	private int nbBomb, nbFlag = 0;
+	private int nbBomb;
+	private Grille terrain;
 	
 	public AfficherGrille(Grille terrain, int taille, boolean cheat)
 	{
+		this.terrain = terrain;
 		grille = terrain.getGrille();
 		nbBomb = terrain.getNbBomb();
 		afficher(taille, cheat);
@@ -41,8 +43,6 @@ public class AfficherGrille
 							else
 								System.out.printf("   |");
 						}
-						if(grille[x][y].getFlag())
-							nbFlag++;
 					}else
 					{
 						reperes(abscisse);
@@ -52,7 +52,7 @@ public class AfficherGrille
 			}
 			System.out.printf("\n");
 		}
-		System.out.printf(" Drapeau(x) disponible(s) : %d\n", nbBomb-nbFlag);
+		System.out.printf(" Drapeau(x) disponible(s) : %d\n", nbBomb-terrain.getNbFlag());
 	}
 	
 	private void reperes(int nb){ // permet d'annuler les decalages graphique pour les reperes abscisse et ordonnee (jusqu'a une taille de 999)

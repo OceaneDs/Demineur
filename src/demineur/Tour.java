@@ -24,12 +24,22 @@ public class Tour
 					return true;
 				break;
 			case 2:
-				coordonnees();
-				poserDrapeau();
+				if(terrain.getNbBomb() - terrain.getNbFlag() == 0)
+					System.out.println("<Erreur !> disponnibilite drapeaux = 0");
+				else
+				{
+					coordonnees();
+					poserDrapeau();
+				}
 				break;
 			case 3:
-				coordonnees();
-				retirerDrapeau();
+				if(terrain.getNbFlag() == 0)
+					System.out.println("<Erreur !> aucun drapeau");
+				else
+				{
+					coordonnees();
+					retirerDrapeau();
+				}
 				break;
 			case 4:
 				return true;
@@ -94,33 +104,42 @@ public class Tour
 			}
 		}while(grille[abscisse][ordonnee].getDiscovered());
 		grille[abscisse][ordonnee].setDiscovered(true);
-		
 		terrain.setGrille(grille);
 		return false;
-	}
-	
+	}	
 	
 	private void poserDrapeau()
 	{
 		Case[][] grille = terrain.getGrille();
-		while(grille[ordonnee][abscisse].getDiscovered() || grille[ordonnee][abscisse].getFlag())
+		do
 		{
-			System.out.println("<Erreur !> la case a deja un drapeau");
-			coordonnees();
-		}
-		grille[ordonnee][abscisse].setFlag(true);
+			if(grille[abscisse][ordonnee].getDiscovered())
+			{
+				System.out.println("<Erreur !> case decouverte");
+				coordonnees();
+			}
+			else if(grille[abscisse][ordonnee].getFlag())
+			{
+				System.out.println("<Erreur !> deja un drapeau");
+				coordonnees();
+			}
+		}while((grille[abscisse][ordonnee].getDiscovered() || grille[abscisse][ordonnee].getFlag()));
+		grille[abscisse][ordonnee].setFlag(true);
 		terrain.setGrille(grille);
 	}
 	
 	private void retirerDrapeau()
 	{
 		Case[][] grille = terrain.getGrille();
-		while(!grille[ordonnee][abscisse].getFlag())
+		do
 		{
-			System.out.println("<Erreur !> la case n'a pas de drapeau");
-			coordonnees();
-		}
-		grille[ordonnee][abscisse].setFlag(false);
+			if(!grille[abscisse][ordonnee].getFlag())
+			{
+				System.out.println("<Erreur !> aucun drapeau sur la case");
+				coordonnees();
+			}
+		}while(!grille[abscisse][ordonnee].getFlag());
+		grille[abscisse][ordonnee].setFlag(false);
 		terrain.setGrille(grille);
 	}
 }
