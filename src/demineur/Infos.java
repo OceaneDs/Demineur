@@ -42,8 +42,8 @@ public class Infos
 	{
 		System.out.println(" Dans les parametres (accessibles depuis le menu), vous trouverez 3 varibales pouvant etres modifies\n"
 				+ " - Taille : vous permet de regler la taille de la grille (longueur = largeur)\n"
-				+ " - Pourcentage bombes : vous permet de regler le nombre de bombes celon un pourcentage\n"
-				+ " - Mode triche : permet de reperer les bombes sous les cases");
+				+ " - Pourcentage bombes : pourcentage que la case soit ou non une bombe\n"
+				+ " - Mode triche : permet de reperer les bombes lors d'une partie (aide aux tests)");
 		ok();
 	}
 	
@@ -51,7 +51,7 @@ public class Infos
 	{
 		System.out.println(" Lors d'une partie il sera possible de faire 4 choix\n"
 				+ " - Devoiler : devoile une case\n"
-				+ " - Poser un drapeau : pose un drapeau sur une case\n"
+				+ " - Poser un drapeau : pose un repere sur une case\n"
 				+ " - Retirer un drapeau : permet de retirer un marqeur\n"
 				+ " - Quitter : quitte la partie en cours");
 		ok();

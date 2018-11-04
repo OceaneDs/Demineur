@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Parametres
 {
 	private Scanner sc;
-	private int choix, taille = 10, pBomb = 50;
+	private int choix, taille = 5, pBomb = 40;
 	private boolean cheat = false;
 	
 	public void selection()
