@@ -2,12 +2,21 @@ package demineur;
 
 public class Grille
 {
-	private int taille = 10, pBomb, abscisse, ordonnee;
-	private Case[][] grille = new Case[taille][taille]; // cree un tableau multidimentionnel de Case
-	public Grille(int taille, int pBomb){setTaille(taille); setPBomb(pBomb); iniGrille();} // definie la taille, puis appel l'initialisation de la grille
-	private void iniGrille()
+	private Case[][] grille;
+	private int taille, pBomb;
+	private Bombe bomb;
+	
+	public Grille(int taille, int pBomb)
 	{
-		Bombe bomb = new Bombe(pBomb);
+		grille = new Case[taille][taille];
+		this.taille = taille;
+		this.pBomb = pBomb;
+		iniGrille();
+	}
+	
+	public void iniGrille()
+	{
+		bomb = new Bombe(pBomb);
 		for(int x = 0; x < taille; x++)
 		{
 			for(int y = 0; y < taille; y++)
@@ -16,56 +25,19 @@ public class Grille
 			}
 		}
 	}
-	public void afficher(boolean cheat)
+	
+	public void setGrille(Case[][] grille)
 	{
-		ordonnee = taille;
-		abscisse = 0;
-		for(int x = 0; x < taille+1; x++)
-		{
-			for(int y = -1; y < taille; y++)
-			{
-				if( y== -1 && x < taille)
-				{
-					reperes(ordonnee);
-					ordonnee--;
-				}else
-				{
-					if(x < taille)
-					{
-						if(grille[x][y].getDiscovered() == false && (grille[x][y].getBomb() == false || cheat == false))
-							System.out.printf(" %c |", 176);
-						else if(grille[x][y].getDiscovered() == false && cheat == true && grille[x][y].getBomb() == true)
-							System.out.printf(" x |");
-						else 
-							System.out.printf("   |");
-					}else
-					{
-						reperes(abscisse);
-						abscisse++;
-					}
-				}
-			}
-			System.out.printf("\n");
-		}
+		this.grille = grille;
 	}
-	private void reperes(int nb){ // permet d'annuler les decalages graphique pour les reperes abscisse et ordonnee (jusqu'a une taille de 999)
-		if(nb > 99) // si le repere est supperieur a 3 caracteres
-			System.out.printf("%d|", nb); // aucun espace
-		else if(nb > 9) // sinon si le repere est supperieur a 2 caracteres
-			System.out.printf("%d |", nb); // 1 espace
-		else // sinon le repere a 1 caractere
-			System.out.printf(" %d |", nb);	// 2 espaces
-	}
-	public int getTaille(){return this.taille;} // retourne la taille de la grille
-	public void setTaille(int taille){this.taille = taille;} // modifie la taille de la grille
-	public int getPBomb(){return this.pBomb;} // retourne le pourcentage de bombes
-	public void setPBomb(int pBomb){this.pBomb = pBomb;} // modifie le pourcentage de bombes
-	public void jouer()
+	
+	public Case[][] getGrille()
 	{
-		new Jouer(grille);
+		return grille;
 	}
-	public boolean verifVic()
+	
+	public int getNbBomb()
 	{
-		return false;
+		return bomb.getNbBomb();
 	}
 }

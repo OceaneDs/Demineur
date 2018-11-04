@@ -4,32 +4,45 @@ import java.util.Scanner;
 public class Menu
 {
 	private Scanner sc;
+	private int choix;
+	private Parametres parametres = new Parametres();
+	
 	public Menu()
 	{
-		int choix;
-		do // boucle du menu principal, ChoixMenu doit etre egal a 4 pour quitter le programme
+		System.out.println("   <DEMINEUR>");
+		selection();
+		System.out.println("     <FIN>");
+	}
+	
+	private void selection()
+	{
+		do // tant que choix != 4 (quitter), boucle
 		{
+			System.out.println(" --- <MENU> ---");
 			sc = new Scanner(System.in);
-			System.out.printf("<CHOIX>\n1. Jouer\n2. Parametres\n3. Regles\n4. Quitter\n: ");
-			choix = sc.nextInt(); //saisie du choix du menu principal
-			switch(choix) // condition du choix du menu
+			System.out.printf(" 1. Jouer\n 2. Parametres\n 3. Infos\n 4. Quitter\n-> ");
+			choix = sc.nextInt(); // saisie du choix
+			switch(choix) // si le choix
 			{
-				case 1:
-					new Partie(5,0,true);
+				case 1: // = 1, lance une partie avec les parametres definit
+					int taille, pBomb;
+					boolean cheat;
+					taille = parametres.getTaille();
+					pBomb = parametres.getPBomb();
+					cheat = parametres.getCheat();
+					new Partie(taille, pBomb, cheat);
 					break;
-				case 2:
-					new Parametre();
+				case 2: // = 2, ouvre les parametres
+					parametres.selection();
 					break;
-				case 3:
-					System.out.println("<Regles>");
-					new Regles();
+				case 3: // = 3, ouvre les infos
+					new Infos();
 					break;
-				case 4:
-						System.out.println("<FIN DEMINEUR>");
+				case 4: // stop la boucle
 					break;
-				default:
-					System.out.println("<Err!>");
+				default: // par defaut
+					System.out.println("<Erreur !>");
 			}
 		}while(choix != 4);
-	}	
+	}
 }

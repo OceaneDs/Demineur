@@ -4,7 +4,6 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		System.out.println("<DEBUT DEMINEUR>");
-		new Menu();
+		new Menu(); // appel le constructeur du Menu
 	}
 }

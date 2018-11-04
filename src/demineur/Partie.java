@@ -2,11 +2,20 @@ package demineur;
 
 public class Partie
 {
+	private Grille terrain;
+	private Tour tour = new Tour();
+	private CondiStop condition = new CondiStop();
+	
 	public Partie(int taille, int pBomb, boolean cheat)
 	{
-		System.out.println("<DEBUT PARTIE>");
-		Grille grille = new Grille(taille, pBomb);
-		grille.afficher(cheat);
-		grille.jouer();
+		boolean quitter;
+		System.out.println(" --- <DEBUT PARTIE> ---");
+		terrain = new Grille(taille, pBomb);
+		do
+		{
+			new AfficherGrille(terrain, taille, cheat);
+			quitter = tour.jouer();
+		}while(condition.victoire(terrain) == false && quitter == false);
+		System.out.println(" --- <FIN PARTIE> ---");
 	}
 }
