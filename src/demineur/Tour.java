@@ -5,6 +5,7 @@ public class Tour
 {
 	protected Scanner sc;
 	private int choix, abscisse, ordonnee;
+	private Grille terrain;
 	
 	public boolean jouer()
 	{
@@ -33,6 +34,11 @@ public class Tour
 		return false;
 	}
 	
+	public Grille getTerrain()
+	{
+		return terrain;
+	}
+	
 	private void coordonnees()
 	{
 		System.out.printf("Coordonnee de X\n-> ");
@@ -44,15 +50,18 @@ public class Tour
 	private void devoiler()
 	{
 		
+		this.terrain = terrain;
 	}
 	
 	private void poserDrapeau()
 	{
 		
+		this.terrain = terrain;
 	}
 	
 	private void retirerDrapeau()
 	{
 		
+		this.terrain = terrain;
 	}
 }
