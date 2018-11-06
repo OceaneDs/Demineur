@@ -25,7 +25,12 @@ public class Parametres
 			{
 				case 1:
 					System.out.printf(" Taille : ");
-					choix = sc.nextInt();
+					do
+					{
+						choix = sc.nextInt();
+						if(choix < 1)
+							System.out.printf(" [1;inf[\n-> ");
+					}while(choix < 1);
 					taille = choix;
 					break;
 				case 2:

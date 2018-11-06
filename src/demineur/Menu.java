@@ -16,15 +16,15 @@ public class Menu
 	
 	private void selection()
 	{
-		do // tant que choix != 4 (quitter), boucle
+		do
 		{
 			System.out.println(" --- <MENU> ---");
 			sc = new Scanner(System.in);
-			System.out.printf(" 1. Jouer\n 2. Parametres\n 3. Infos\n 4. Quitter\n-> ");
+			System.out.printf(" 1. Jouer\n 2. Parametres\n 3. Quitter\n-> ");
 			choix = sc.nextInt(); // saisie du choix
 			switch(choix) // si le choix
 			{
-				case 1: // = 1, lance une partie avec les parametres definit
+				case 1:
 					int taille, pBomb;
 					boolean cheat;
 					taille = parametres.getTaille();
@@ -35,14 +35,11 @@ public class Menu
 				case 2: // = 2, ouvre les parametres
 					parametres.selection();
 					break;
-				case 3: // = 3, ouvre les infos
-					new Infos();
-					break;
-				case 4: // stop la boucle
+				case 3: // stop la boucle
 					break;
 				default: // par defaut
 					System.out.println("<Erreur !>");
 			}
-		}while(choix != 4);
+		}while(choix != 3);
 	}
 }

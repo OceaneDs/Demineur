@@ -104,6 +104,8 @@ public class Tour
 			}
 		}while(grille[abscisse][ordonnee].getDiscovered());
 		grille[abscisse][ordonnee].setDiscovered(true);
+		if(grille[abscisse][ordonnee].getValue() == 0)
+			grille = otherCase(grille, abscisse, ordonnee);
 		terrain.setGrille(grille);
 		return false;
 	}	
@@ -141,5 +143,29 @@ public class Tour
 		}while(!grille[abscisse][ordonnee].getFlag());
 		grille[abscisse][ordonnee].setFlag(false);
 		terrain.setGrille(grille);
+	}
+	
+	private Case[][] otherCase(Case[][] grille, int x, int y)
+	{
+		int abscisse, ordonnee;
+		for(int x1 = -1; x1 < 2; x1++)
+		{
+			for(int y1 = -1; y1 < 2; y1++)
+			{
+				if((x1 != 0 || y1 != 0) && x + x1 >= 0 && x+x1 < taille && y+y1 >= 0 && y+y1 < taille && !grille[x+x1][y+y1].getDiscovered())
+				{
+					if(grille[x+x1][y+y1].getValue() == 0)
+					{
+						grille[x+x1][y+y1].setDiscovered(true);
+						abscisse = x+x1;
+						ordonnee = y+y1;
+						grille = otherCase(grille, abscisse, ordonnee);
+					}
+					else if(grille[x+x1][y+y1].getValue() != 0)
+						grille[x+x1][y+y1].setDiscovered(true);
+				}					
+			}
+		}
+		return grille;
 	}
 }
