@@ -8,7 +8,7 @@ public class Parametres
 	/**
 	 * Initialise les valeurs des parametres par défauts
 	 */
-	public Parametres() {setTaille(10); setProbaBombe(30); setTriche(false);}
+	public Parametres() {setTaille(10); setProbaBombe(20); setTriche(false);}
 	
 	/**
 	 * 

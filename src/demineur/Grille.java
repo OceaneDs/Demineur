@@ -92,7 +92,7 @@ public class Grille
 	{
 		Case[][] tabCase = getGrille();
 		tabCase[ordonnee][abscisse].setDecouvert(true);
-		if(tabCase[ordonnee][abscisse].getValeur() == 0)
+		if(tabCase[ordonnee][abscisse].getValeur() == 0 && !tabCase[ordonnee][abscisse].getBombe())
 			tabCase = casesAutour(tabCase, abscisse, ordonnee);
 		setGrille(tabCase);
 	}
