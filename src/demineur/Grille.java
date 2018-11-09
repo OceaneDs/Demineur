@@ -103,15 +103,15 @@ public class Grille
 		{
 			for(int y1 = -1; y1 < 2; y1++)
 			{
-				if(etreDansLaGrille(x, y, x1, y1) && !tabCase[x+x1][y+y1].getDecouvert())
+				if(etreDansLaGrille(x, y, x1, y1) && !tabCase[y+y1][x+x1].getDecouvert())
 				{
-					if(tabCase[x+x1][y+y1].getValeur() == 0 && !tabCase[x+x1][y+y1].getBombe())
+					if(tabCase[y+y1][x+x1].getValeur() == 0 && !tabCase[y+y1][x+x1].getBombe())
 					{
-						tabCase[x+x1][y+y1].setDecouvert(true);
+						tabCase[y+y1][x+x1].setDecouvert(true);
 						tabCase = casesAutour(tabCase, x+x1, y+y1);
 					}
-					else if(tabCase[x+x1][y+y1].getValeur() != 0)
-						tabCase[x+x1][y+y1].setDecouvert(true);
+					else if(tabCase[y+y1][x+x1].getValeur() != 0)
+						tabCase[y+y1][x+x1].setDecouvert(true);
 				}					
 			}
 		}
