@@ -1,74 +1,48 @@
 package demineur;
 
-import java.util.Scanner;
-
 public class Parametres
 {
-	private Scanner sc;
-	private int choix, taille = 10, pBomb = 40;
-	private boolean cheat = false;
+	private int taille, probaBombe;
+	private boolean triche;
 	
-	public void selection()
-	{
-		sc = new Scanner(System.in);
-		do
-		{
-			System.out.println(" --- <PARAMETRES> ---");
-			System.out.printf(" 1. Taille : %d\n 2. Bombes : %d%c\n", taille, pBomb, 37);
-			if(cheat == false)
-				System.out.println(" 3. Mode triche : desactive");
-			else
-				System.out.println(" 3. Mode triche : active");
-			System.out.printf(" 4. Retour\n-> ");
-			choix = sc.nextInt();
-			switch(choix)
-			{
-				case 1:
-					System.out.printf(" Taille : ");
-					do
-					{
-						choix = sc.nextInt();
-						if(choix < 1)
-							System.out.printf(" [1;inf[\n-> ");
-					}while(choix < 1);
-					taille = choix;
-					break;
-				case 2:
-					System.out.printf(" Bombes : ");
-					do
-					{
-						choix = sc.nextInt();
-						if(choix < 0 || choix >100)
-							System.out.printf(" [0;100]\n-> ");
-					}while(choix < 0 || choix >100);
-					pBomb = choix;
-					break;
-				case 3:
-					if(cheat == false)
-						cheat = true;
-					else
-						cheat = false;
-					break;
-				case 4:
-					break;
-				default:
-					System.out.println("<Erreur !>");
-			}
-		}while(choix != 4);
-	}
+	/**
+	 * Initialise les valeurs des parametres par défauts
+	 */
+	public Parametres() {setTaille(10); setProbaBombe(30); setTriche(false);}
 	
-	public int getTaille()
-	{
-		return taille;
-	}
+	/**
+	 * 
+	 * @param taille
+	 */
+	public void setTaille(int taille) {this.taille = taille;}
 	
-	public int getPBomb()
-	{
-		return pBomb;
-	}
+	/**
+	 * 
+	 * @param probaBombe
+	 */
+	public void setProbaBombe(int probaBombe) {this.probaBombe = probaBombe;}
 	
-	public boolean getCheat()
-	{
-		return cheat;
-	}
+	/**
+	 * 
+	 * @param triche
+	 */
+	public void setTriche(boolean triche) {this.triche = triche;}
+	
+	/**
+	 * taille compris entre [1;+infini[
+	 * @return taille
+	 */
+	public int getTaille() {return this.taille;}
+	
+	/**
+	 * probaBomb compris entre [0;100] (%)
+	 * @return probaBombe
+	 */
+	public int getProbaBombe() {return this.probaBombe;}
+	
+	/**
+	 * 
+	 * @return triche
+	 */
+	public boolean getTriche(){return this.triche;}
 }

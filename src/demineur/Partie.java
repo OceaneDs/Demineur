@@ -2,22 +2,60 @@ package demineur;
 
 public class Partie
 {
-	private Grille terrain;
-	private Tour tour;
-	private CondiStop condition = new CondiStop();
+	private Grille grille;
+	private int taille;
+	private Affichage affichage;
 	
-	public Partie(int taille, int pBomb, boolean cheat)
+	public Partie(Parametres parametres)
 	{
-		boolean quitter;
-		System.out.println(" --- <DEBUT PARTIE> ---");
-		terrain = new Grille(taille, pBomb);
-		tour = new Tour();
-		do
+		this.taille = parametres.getTaille();
+		affichage = new Affichage(parametres);
+		grille = new Grille(parametres);
+		affichage.debutPartie();
+		do {
+			affichage.grille(grille.getGrille());
+			affichage.drapeaux(grille);
+			affichage.tour(grille);
+		}while(!victoire() && !perdu() && affichage.getQuitter());
+		affichage.finPartie();
+		new Demineur();
+	}
+	
+	private boolean victoire()
+	{
+		int	nbCase = taille * taille - this.grille.getNbBombe(), 
+			nbCaseDecouverte = 0;
+		Case[][] tabCase = this.grille.getGrille();
+		for(int x = 0; x < taille; x++)
 		{
-			new AfficherGrille(terrain, taille, cheat);
-			quitter = tour.jouer(terrain, taille, cheat);
-			terrain = tour.getTerrain();
-		}while(!(condition.victoire(terrain, taille, cheat) || quitter));
-		System.out.println(" --- <FIN PARTIE> ---\n");
+			for(int y = 0; y < taille; y++)
+			{
+				if(tabCase[x][y].getDecouvert())
+					nbCaseDecouverte++;
+			}
+		}
+		if(nbCaseDecouverte == nbCase)
+		{
+			affichage.victoire();
+			return true;
+		}
+		return false;
+	}
+	
+	private boolean perdu()
+	{
+		Case[][] tabCase = this.grille.getGrille();
+		for(int x = 0; x < taille; x++)
+		{
+			for(int y = 0; y < taille; y++)
+			{
+				if(tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe())
+				{
+					affichage.perdu(tabCase);
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

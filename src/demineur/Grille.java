@@ -1,80 +1,164 @@
 package demineur;
 
+import java.lang.Math;
+
 public class Grille
 {
-	private Case[][] grille;
-	private int taille, pBomb;
-	private Bombe bomb;
+	private Case[][] tabCase;
+	private Parametres parametres;
+	private int nbBombe, nbDrapeau, taille, pBombe;
 	
-	public Grille(int taille, int pBomb)
+	public Grille(Parametres parametres)
 	{
-		grille = new Case[taille][taille];
-		this.taille = taille;
-		this.pBomb = pBomb;
+		this.parametres = parametres;
+		taille = parametres.getTaille();
+		pBombe = parametres.getProbaBombe();
 		iniGrille();
 	}
 	
-	public void iniGrille()
+	private void iniGrille()
 	{
-		bomb = new Bombe(pBomb);
-		for(int x = 0; x < taille; x++)
-		{
-			for(int y = 0; y < taille; y++)
-			{
-				grille[x][y] = new Case(bomb.randBombe(), false);
-			}
-		}
-		remplirValue();
+		tabCase = new Case[taille][taille];
+		placerBombe();
+		remplirValeur();
 	}
 	
-	private void remplirValue()
+	private void placerBombe()
 	{
 		for(int x = 0; x < taille; x++)
 		{
 			for(int y = 0; y < taille; y++)
 			{
-				int c = 0;
-				for(int x1 = -1; x1 < 2; x1++)
+				tabCase[x][y] = new Case(estUneBombe(), false);
+			}
+		}
+	}
+	
+	private boolean estUneBombe()
+	{
+		if( ((int) (Math.random() * 100)) >= pBombe) 
+			return false; 
+		nbBombe++;
+		return true;
+	}
+	
+	private void remplirValeur()
+	{
+		for(int x = 0; x < taille; x++)
+		{
+			for(int y = 0; y < taille; y++)
+			{
+				tabCase[x][y].setValeur(nbBombAutour(x, y));
+			}
+		}
+	}
+	
+	private int nbBombAutour(int x, int y)
+	{
+		int c = 0;
+		for(int x1 = -1; x1 < 2; x1++)
+		{
+			for(int y1 = -1; y1 < 2; y1++)
+			{
+				if(etreDansLaGrille(x, y, x1, y1) && tabCase[x+x1][y+y1].getBombe())
+						c++;
+			}
+		}
+		return c;
+	}
+	
+	private boolean etreDansLaGrille(int x, int y, int x1, int y1)
+	{
+		if((x1 != 0 || y1 != 0) && x + x1 >= 0 && x+x1 < taille && y+y1 >= 0 && y+y1 < taille)
+			return true;
+		return false;
+	}
+	
+	public void poserDrapeau(int abscisse, int ordonnee)
+	{
+		Case[][] tabCase = getGrille();
+		tabCase[ordonnee][abscisse].setDrapeau(true);
+		setGrille(tabCase);
+	}
+	
+	public void retirerDrapeau(int abscisse, int ordonnee)
+	{
+		Case[][] tabCase = getGrille();
+		tabCase[ordonnee][abscisse].setDrapeau(false);
+		setGrille(tabCase);
+	}
+	
+	public void devoiler(int abscisse, int ordonnee)
+	{
+		Case[][] tabCase = getGrille();
+		tabCase[ordonnee][abscisse].setDecouvert(true);
+		if(tabCase[ordonnee][abscisse].getValeur() == 0)
+			tabCase = casesAutour(tabCase, abscisse, ordonnee);
+		setGrille(tabCase);
+	}
+	
+	private Case[][] casesAutour(Case[][] tabCase, int x, int y)
+	{
+		for(int x1 = -1; x1 < 2; x1++)
+		{
+			for(int y1 = -1; y1 < 2; y1++)
+			{
+				if(etreDansLaGrille(x, y, x1, y1) && !tabCase[x+x1][y+y1].getDecouvert())
 				{
-					for(int y1 = -1; y1 < 2; y1++)
+					if(tabCase[x+x1][y+y1].getValeur() == 0 && !tabCase[x+x1][y+y1].getBombe())
 					{
-						if((x1 != 0 || y1 != 0) && x + x1 >= 0 && x+x1 < taille && y+y1 >= 0 && y+y1 < taille)
-							if(grille[x+x1][y+y1].getBomb())
-								c++;
+						tabCase[x+x1][y+y1].setDecouvert(true);
+						tabCase = casesAutour(tabCase, x+x1, y+y1);
 					}
-				}
-				grille[x][y].setValue(c);
+					else if(tabCase[x+x1][y+y1].getValeur() != 0)
+						tabCase[x+x1][y+y1].setDecouvert(true);
+				}					
 			}
 		}
-		
+		return tabCase;
 	}
 	
-	public void setGrille(Case[][] grille)
+	public void NbDrapeau()
 	{
-		this.grille = grille;
-	}
-	
-	public Case[][] getGrille()
-	{
-		return grille;
-	}
-	
-	public int getNbBomb()
-	{
-		return bomb.getNbBomb();
-	}
-	
-	public int getNbFlag()
-	{
-		int nbFlag = 0;
+		nbDrapeau = 0;
 		for(int x = 0; x < taille; x++)
 		{
 			for(int y = 0; y < taille; y++)			
 			{
-				if(grille[x][y].getFlag())
-					nbFlag++;
+				if(tabCase[x][y].getDrapeau())
+					nbDrapeau++;
 			}
 		}
-		return nbFlag;
+	}
+	
+	public void setGrille(Case[][] grille)
+	{
+		this.tabCase = grille;
+	}
+	
+	public void setParametres(Parametres parametres)
+	{
+		this.parametres = parametres;
+	}
+	
+	public Case[][] getGrille()
+	{
+		return tabCase;
+	}
+	
+	public int getNbBombe()
+	{
+		return nbBombe;
+	}
+	
+	public int getNbDrapeau()
+	{
+		NbDrapeau();
+		return nbDrapeau;
+	}
+	
+	public Parametres getParametres()
+	{
+		return parametres;
 	}
 }

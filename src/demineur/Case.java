@@ -2,52 +2,52 @@ package demineur;
 
 public class Case
 {
-	private int value = 0;
-	private boolean bombe = false, flag = false, discovered = false;
+	private int valeur = 0;
+	private boolean bombe = false, drapeau = false, decouvert = false;
 	
-	public Case(boolean bombe, boolean discovered) // constructeur de la class Case, attribue une valeur aux boolean bombe et discovered
+	public Case(boolean bombe, boolean decouvert)
 	{
 		this.bombe = bombe; 
-		this.discovered = discovered;
+		this.decouvert = decouvert;
 	}
 	
-	public int getValue() // retourne la valeur de la variable value
+	public void setValeur(int valeur)
 	{
-		return this.value;
+		this.valeur = valeur;
 	}
 	
-	public void setValue(int value) // modifie la valeur de la variable value
-	{
-		this.value = value;
-	}
-	
-	public boolean getBomb() // retourne la valeur de la variable bombe
-	{
-		return this.bombe;
-	}
-	
-	public void setBomb(boolean bombe) // modifie la valeur de la variable bombe
+	public void setBombe(boolean bombe)
 	{
 		this.bombe = bombe;
 	}
 	
-	public boolean getFlag() // retourne la valeur de la variable flag
+	public void setDrapeau(boolean drapeau)
 	{
-		return this.flag;
+		this.drapeau = drapeau;
 	}
 	
-	public void setFlag(boolean flag) // modifie la valeur de la variable flag
+	public void setDecouvert(boolean decouvert)
 	{
-		this.flag = flag;
+		this.decouvert = decouvert;
 	}
 	
-	public boolean getDiscovered() // retourne la valeur de la variable discovered
+	public int getValeur()
 	{
-		return this.discovered;
+		return valeur;
 	}
 	
-	public void setDiscovered(boolean discovered) // modifie la valeur de la variable discovered
+	public boolean getBombe()
 	{
-		this.discovered = discovered;
+		return bombe;
+	}
+	
+	public boolean getDrapeau()
+	{
+		return drapeau;
+	}
+	
+	public boolean getDecouvert()
+	{
+		return decouvert;
 	}
 }
