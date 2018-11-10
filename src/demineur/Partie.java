@@ -18,7 +18,7 @@ public class Partie
 			affichage.tour(grille);
 		}while(!victoire() && !perdu() && affichage.getQuitter());
 		affichage.finPartie();
-		new Demineur();
+		new Demineur(parametres);
 	}
 	
 	private boolean victoire()
@@ -36,7 +36,7 @@ public class Partie
 		}
 		if(nbCaseDecouverte == nbCase)
 		{
-			affichage.victoire();
+			affichage.victoire(tabCase);
 			return true;
 		}
 		return false;
