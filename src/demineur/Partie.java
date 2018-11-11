@@ -12,7 +12,8 @@ public class Partie
 		affichage = new Affichage(parametres);
 		grille = new Grille(parametres);
 		affichage.debutPartie();
-		do {
+		do
+		{
 			affichage.grille(grille.getGrille());
 			affichage.drapeaux(grille);
 			affichage.tour(grille);
