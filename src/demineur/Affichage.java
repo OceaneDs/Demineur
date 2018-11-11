@@ -28,12 +28,12 @@ public class Affichage
 					drapeaux	= " Drapeau(x) disponible(s) : %d\n",
 					horsGrille	= " Coordonnées hors de la grille",
 					dejaDrapeaux= " Impossible de dévoiler un drapeau",
-					val1		= " #  ", // case non dévoilé
-					val2		= " ?  ", // case avec drapeau
-					val3		= " x  ", // case non dévoilé avec bombe affiché si mode triche ou perdu
-					val4		= " !  ", // case dévoilé avec une bombe
-					val5		= " %d  ", // case dévoilé avec valeur
-					val6		= "    " // case dévoilé sans valeur
+					val1		= " #  ", // non dévoilé
+					val2		= " ?  ", // drapeau
+					val3		= " x  ", // bombe
+					val4		= " !  ", // dévoilé avec bombe
+					val5		= " %d  ", // dévoilé avec valeur
+					val6		= "    " // dévoilé sans valeur
 					;
 	
 	public Affichage(Parametres parametres)
@@ -253,7 +253,7 @@ public class Affichage
 		System.out.println(finPartie);
 	}
 	
-	public void tour(Grille grille) // #CodeDePorc
+	public void tour(Grille grille)
 	{
 		boolean erreur;
 		int option, abscisse, ordonnee;
