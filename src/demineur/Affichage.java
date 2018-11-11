@@ -27,7 +27,13 @@ public class Affichage
 					textTour	= " <0. Poser drapeau | -1. Quitter la partie | -2. Triche(%s) | rien> <abscisse> <ordonnee>\n-> ",
 					drapeaux	= " Drapeau(x) disponible(s) : %d\n",
 					horsGrille	= " Coordonnées hors de la grille",
-					dejaDrapeaux= " Impossible de dévoiler un drapeau"
+					dejaDrapeaux= " Impossible de dévoiler un drapeau",
+					val1		= " #  ", // case non dévoilé
+					val2		= " ?  ", // case avec drapeau
+					val3		= " x  ", // case non dévoilé avec bombe affiché si mode triche ou perdu
+					val4		= " !  ", // case dévoilé avec une bombe
+					val5		= " %d  ", // case dévoilé avec valeur
+					val6		= "    " // case dévoilé sans valeur
 					;
 	
 	public Affichage(Parametres parametres)
@@ -142,7 +148,7 @@ public class Affichage
 				}else
 				{
 					if(x < taille)
-						conditionAffichage(tabCase, taille, x, y);
+						conditionAffichage(tabCase, x, y);
 					else
 					{
 						reperes(abscisse);
@@ -154,24 +160,59 @@ public class Affichage
 		}
 	}
 	
-	private void conditionAffichage(Case[][] tabCase, int taille, int x, int y) // #CodeDePorc
+	private void conditionAffichage(Case[][] tabCase, int x, int y)
 	{
 			boolean triche = parametres.getTriche();
-			if((!tabCase[x][y].getDecouvert() && !tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau())  || (!tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau() && !triche))
-				System.out.printf(" %c  ", 176);
-			else if((!tabCase[x][y].getDecouvert() && !tabCase[x][y].getBombe() && tabCase[x][y].getDrapeau()) || (!tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe() && tabCase[x][y].getDrapeau()))
-				System.out.printf(" ?  ");
-			else if(!tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau() && triche)
-				System.out.printf(" x  ");
-			else if(tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau())
-				System.out.printf(" !  ");
-			else if(tabCase[x][y].getDecouvert() && !tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau())
+			if(estUnDrapeau(tabCase, x, y, triche))
+				System.out.printf("%s", val2);
+			else if(estLaBombe(tabCase, x, y))
+				System.out.printf("%s", val4);
+			else if(estUneBombe(tabCase, x, y, triche))
+				System.out.printf("%s", val3);
+			else if(estCache(tabCase, x, y))
+				System.out.printf("%s", val1);
+			else if(estDevoile(tabCase, x, y))
 			{
 				if(tabCase[x][y].getValeur() != 0)
-					System.out.printf(" %d  ", tabCase[x][y].getValeur());
+					System.out.printf(val5, tabCase[x][y].getValeur());
 				else
-					System.out.printf("    ");
+					System.out.printf("%s", val6);
 			}
+	}
+	
+	private boolean estCache(Case[][] tabCase, int x, int y)
+	{
+		if(!tabCase[x][y].getDecouvert() && !tabCase[x][y].getDrapeau()) // il faut que la case ne soit pas découverte et qu'elle ne soit pas un drapeau
+			return true;
+		return false;
+	}
+	
+	private boolean estUnDrapeau(Case[][] tabCase, int x, int y, boolean triche)
+	{
+		if(!tabCase[x][y].getDecouvert() && tabCase[x][y].getDrapeau() && !triche) // il faut que la case ne soit pas decouvert, que la case soit un drapeau && que le mod triche ne soit pas activé
+			return true;
+		return false;
+	}
+	
+	private boolean estUneBombe(Case[][] tabCase, int x, int y, boolean triche)
+	{
+		if(tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau() && triche) // il faut que la case soit une bombe, ne soit pas un drapeau et que le mod triche soit active
+			return true;
+		return false;
+	}
+	
+	private boolean estLaBombe(Case[][] tabCase, int x, int y)
+	{
+		if(tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe()) // si la case decouverte est la bombe
+			return true;
+		return false;
+	}
+	
+	private boolean estDevoile(Case[][] tabCase, int x, int y)
+	{
+		if(tabCase[x][y].getDecouvert()) // il faut que la case soit dévoilé
+			return true;
+		return false;
 	}
 	
 	private void reperes(int nb){
