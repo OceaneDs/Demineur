@@ -11,7 +11,11 @@ public class Demineur
 			new Partie(parametres);
 	}
 	
-	public Demineur(Parametres parametres) // garde en mémoire les parametres
+	/**
+	 *garde en mÃ©moire les parametres et relance une partie avec des parametres deja defini
+	 */
+	
+	public Demineur(Parametres parametres) 
 	{
 		this.parametres = parametres;
 		parametres.setTriche(false);

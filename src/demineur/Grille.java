@@ -16,12 +16,21 @@ public class Grille
 		iniGrille();
 	}
 	
+	/**
+	 * lors de l'initialisation de chaque case de la grille
+	 * appel une methode bombe (placerBombe()) qui renvera si la case est une bombe ou non
+	 */
+	
 	private void iniGrille()
 	{
 		tabCase = new Case[taille][taille];
 		placerBombe();
 		remplirValeur();
 	}
+	
+	/**
+	 * 
+	 */
 	
 	private void placerBombe()
 	{
@@ -34,13 +43,22 @@ public class Grille
 		}
 	}
 	
+	/**
+	 * prend un nombre au hasard entre 0 et 100
+	 * si ce nombre et inferieur ou egal au pourcentage donné alors c'est une bombe
+	 */
+	
 	private boolean estUneBombe()
 	{
-		if( ((int) (Math.random() * 100)) >= pBombe) 
+		if( ((int) (Math.random() * 100)) > pBombe) 
 			return false; 
 		nbBombe++;
 		return true;
 	}
+
+	/**
+	 * lors du dévoilage d'une case, recupere la valeur du nombre de bombe autour
+	 */
 	
 	private void remplirValeur()
 	{
@@ -53,6 +71,12 @@ public class Grille
 		}
 	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @return
+	 * 
+	 */
 	private int nbBombAutour(int x, int y)
 	{
 		int c = 0;
