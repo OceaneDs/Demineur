@@ -16,8 +16,8 @@ public class Affichage
 					erreur		= " <Erreur !>",
 					errX		= " abscisse [0;%d]",
 					errY		= " ordonnee [0;%d]",
-					vide		= " La case est d�voil�",
-					choixInv	= " Le choix demand� n'est pas valide",
+					vide		= " La case est dévoilé",
+					choixInv	= " Le choix demandé n'est pas valide",
 					tailleInv 	= " La taille saisie n'est pas valide [1;+infini[",
 					pourcentInv = " Le pourcentage saisie est invalide [0;100]",
 					titreMenu 	= " --- <MENU> ---",
@@ -26,14 +26,14 @@ public class Affichage
 					textPara	= " 1. Taille : %d | 2. Bombes : %d%c | 3. Mode triche : %s | -1. Retour\n-> ",
 					textTour	= " <0. Poser drapeau | -1. Quitter la partie | -2. Triche(%s) | rien> <abscisse> <ordonnee>\n-> ",
 					drapeaux	= " Drapeau(x) disponible(s) : %d\n",
-					horsGrille	= " Coordonn�es hors de la grille",
-					dejaDrapeaux= " Impossible de d�voiler un drapeau",
-					val1		= " #  ", // case non d�voil�
-					val2		= " ?  ", // case avec drapeau
-					val3		= " x  ", // case non d�voil� avec bombe affich� si mode triche ou perdu
-					val4		= " !  ", // case d�voil� avec une bombe
-					val5		= " %d  ", // case d�voil� avec valeur
-					val6		= "    " // case d�voil� sans valeur
+					horsGrille	= " Coordonnées hors de la grille",
+					dejaDrapeaux= " Impossible de dévoiler un drapeau",
+					val1		= " #  ", // non dévoilé
+					val2		= " ?  ", // drapeau
+					val3		= " x  ", // bombe
+					val4		= " !  ", // dévoilé avec bombe
+					val5		= " %d  ", // dévoilé avec valeur
+					val6		= "    " // dévoilé sans valeur
 					;
 	
 	public Affichage(Parametres parametres)
@@ -137,6 +137,7 @@ public class Affichage
 		}while(choix != -1 && (choix < 0 || choix > 100));
 	}
 	
+
 	/**
 	 * affichage de l'activation ou desactivation direct du mode triche
 	 */
@@ -215,7 +216,7 @@ public class Affichage
 	 */
 	private boolean estCache(Case[][] tabCase, int x, int y)
 	{
-		if(!tabCase[x][y].getDecouvert() && !tabCase[x][y].getDrapeau()) 
+		if(!tabCase[x][y].getDecouvert() && !tabCase[x][y].getDrapeau()) // il faut que la case ne soit pas découverte et qu'elle ne soit pas un drapeau
 			return true;
 		return false;
 	}
@@ -230,7 +231,7 @@ public class Affichage
 	 */
 	private boolean estUnDrapeau(Case[][] tabCase, int x, int y, boolean triche)
 	{
-		if(!tabCase[x][y].getDecouvert() && tabCase[x][y].getDrapeau() && !triche) 
+		if(!tabCase[x][y].getDecouvert() && tabCase[x][y].getDrapeau() && !triche) // il faut que la case ne soit pas decouvert, que la case soit un drapeau && que le mod triche ne soit pas activé
 			return true;
 		return false;
 	}
@@ -245,7 +246,7 @@ public class Affichage
 	 */
 	private boolean estUneBombe(Case[][] tabCase, int x, int y, boolean triche)
 	{
-		if(tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau() && triche) 
+		if(tabCase[x][y].getBombe() && !tabCase[x][y].getDrapeau() && triche) // il faut que la case soit une bombe, ne soit pas un drapeau et que le mod triche soit active
 			return true;
 		return false;
 	}
@@ -259,21 +260,14 @@ public class Affichage
 	 */
 	private boolean estLaBombe(Case[][] tabCase, int x, int y)
 	{
-		if(tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe())
+		if(tabCase[x][y].getDecouvert() && tabCase[x][y].getBombe()) // si la case decouverte est la bombe
 			return true;
 		return false;
 	}
 	
-	/**
-	 * @param tabCase
-	 * @param x
-	 * @param y
-	 * @return
-	 * retourne vrai si la case est d�voil�
-	 */
 	private boolean estDevoile(Case[][] tabCase, int x, int y)
 	{
-		if(tabCase[x][y].getDecouvert())
+		if(tabCase[x][y].getDecouvert()) // il faut que la case soit dévoilé
 			return true;
 		return false;
 	}
@@ -327,12 +321,12 @@ public class Affichage
 	{
 		System.out.println(finPartie);
 	}
-	
+
 	/**
 	 * @param grille
 	 * permet de choisir l'action du joueur
 	 */
-	public void tour(Grille grille) // #CodeDePorc
+	public void tour(Grille grille)
 	{
 		boolean erreur;
 		int option, abscisse, ordonnee;
