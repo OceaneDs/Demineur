@@ -6,7 +6,7 @@ public class Grille
 {
 	private Case[][] tabCase;
 	private Parametres parametres;
-	private int nbBombe, nbDrapeau, taille, pBombe;
+	private int nbBombe, taille, pBombe;
 	
 	public Grille(Parametres parametres)
 	{
@@ -118,9 +118,9 @@ public class Grille
 		return tabCase;
 	}
 	
-	public void NbDrapeau()
+	public int NbDrapeau()
 	{
-		nbDrapeau = 0;
+		int nbDrapeau = 0;
 		for(int x = 0; x < taille; x++)
 		{
 			for(int y = 0; y < taille; y++)			
@@ -129,6 +129,7 @@ public class Grille
 					nbDrapeau++;
 			}
 		}
+		return nbDrapeau;
 	}
 	
 	public void setGrille(Case[][] grille)
@@ -153,8 +154,7 @@ public class Grille
 	
 	public int getNbDrapeau()
 	{
-		NbDrapeau();
-		return nbDrapeau;
+		return NbDrapeau();
 	}
 	
 	public Parametres getParametres()
