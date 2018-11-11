@@ -15,7 +15,6 @@ public class Demineur
 	/**
 	 *garde en mémoire les parametres et relance une partie avec des parametres deja defini
 	 */
-	
 	public Demineur(Parametres parametres) 
 	{
 		affichage = new Affichage(parametres);

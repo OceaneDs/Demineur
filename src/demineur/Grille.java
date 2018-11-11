@@ -20,7 +20,6 @@ public class Grille
 	 * lors de l'initialisation de chaque case de la grille
 	 * appel une methode bombe (placerBombe()) qui renvera si la case est une bombe ou non
 	 */
-	
 	private void iniGrille()
 	{
 		tabCase = new Case[taille][taille];
@@ -31,7 +30,6 @@ public class Grille
 	/**
 	 * 
 	 */
-	
 	private void placerBombe()
 	{
 		for(int x = 0; x < taille; x++)
@@ -47,7 +45,6 @@ public class Grille
 	 * prend un nombre au hasard entre 0 et 100
 	 * si ce nombre et inferieur ou egal au pourcentage donné alors c'est une bombe
 	 */
-	
 	private boolean estUneBombe()
 	{
 		if( ((int) (Math.random() * 100)) > pBombe) 
@@ -57,9 +54,8 @@ public class Grille
 	}
 
 	/**
-	 * lors du dévoilage d'une case, recupere la valeur du nombre de bombe autour
+	 * lors du dévoilage d'une case, recupere la valeur du nombre de bombes autour
 	 */
-	
 	private void remplirValeur()
 	{
 		for(int x = 0; x < taille; x++)
@@ -75,7 +71,7 @@ public class Grille
 	 * @param x
 	 * @param y
 	 * @return
-	 * 
+	 * verifie si les coordonnees sont bien dans la grille et qu'il y a des bombes autour
 	 */
 	private int nbBombAutour(int x, int y)
 	{
@@ -91,6 +87,14 @@ public class Grille
 		return c;
 	}
 	
+	/**
+	 * @param x
+	 * @param y
+	 * @param x1
+	 * @param y1
+	 * @return
+	 * verifie que les coordonnees se trouve bien dans la grille
+	 */
 	private boolean etreDansLaGrille(int x, int y, int x1, int y1)
 	{
 		if((x1 != 0 || y1 != 0) && x + x1 >= 0 && x+x1 < taille && y+y1 >= 0 && y+y1 < taille)
@@ -98,6 +102,12 @@ public class Grille
 		return false;
 	}
 	
+	/**
+	 * @param abscisse
+	 * @param ordonnee
+	 * recupere une case de la grille grace au coordonnee
+	 * modifie sa valeur et la renvoie dans la grille
+	 */
 	public void poserDrapeau(int abscisse, int ordonnee)
 	{
 		Case[][] tabCase = getGrille();
@@ -105,6 +115,12 @@ public class Grille
 		setGrille(tabCase);
 	}
 	
+	/**
+	 * @param abscisse
+	 * @param ordonnee
+	 * recupere une case de la grille grace au coordonnee
+	 * modifie sa valeur et la renvoie dans la grille
+	 */
 	public void retirerDrapeau(int abscisse, int ordonnee)
 	{
 		Case[][] tabCase = getGrille();
@@ -112,6 +128,13 @@ public class Grille
 		setGrille(tabCase);
 	}
 	
+	/**
+	 * @param abscisse
+	 * @param ordonnee
+	 * recupere une case de la grille grace aux coordonnees
+	 * modifie sa valeur et la renvoie dans la grille
+	 * verifie que la case soit vide et qu'elle ne contient bombe, si condition respectee apppel la methode caseAutour()
+	 */
 	public void devoiler(int abscisse, int ordonnee)
 	{
 		Case[][] tabCase = getGrille();
@@ -121,6 +144,13 @@ public class Grille
 		setGrille(tabCase);
 	}
 	
+	/**
+	 * @param tabCase
+	 * @param x
+	 * @param y
+	 * @return
+	 * fonction recurcive qui ne s'appelle que quand la case est vide et qui revele les cases autour et qui ne sont pas deja decouverte
+	 */
 	private Case[][] casesAutour(Case[][] tabCase, int x, int y)
 	{
 		for(int x1 = -1; x1 < 2; x1++)
@@ -142,6 +172,10 @@ public class Grille
 		return tabCase;
 	}
 	
+	/**
+	 * @return
+	 * gestion du nombre de drapeaux restant
+	 */
 	public int NbDrapeau()
 	{
 		int nbDrapeau = 0;
